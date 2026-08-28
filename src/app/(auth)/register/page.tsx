@@ -5,6 +5,11 @@ import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { authClient } from "@/lib/auth-client";
+import { AppLogo } from "@/components/layout/app-logo";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -38,103 +43,117 @@ export default function RegisterPage() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center px-6">
+    <main className="flex min-h-screen items-center justify-center bg-slate-50 px-6 py-12">
       <div className="w-full max-w-md">
+        {/* Brand */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold">
-            Create your account
-          </h1>
+          <AppLogo />
 
-          <p className="mt-2 text-sm text-gray-600">
-            Connect your engineering tools and track team productivity.
-          </p>
+          <div className="mt-10">
+            <h1 className="text-3xl font-semibold tracking-tight text-slate-950">
+              Create your account
+            </h1>
+
+            <p className="mt-2 text-sm leading-6 text-slate-500">
+              Connect your engineering tools and track team productivity.
+            </p>
+          </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <div>
-            <label
-              htmlFor="name"
-              className="mb-2 block text-sm font-medium"
-            >
-              Name
-            </label>
+        {/* Form */}
+        <Card className="border-slate-200 bg-white shadow-sm">
+          <CardContent className="pt-6">
+            <form onSubmit={handleSubmit} className="space-y-5">
+              {/* Name */}
+              <div className="space-y-2">
+                <Label htmlFor="name">Full name</Label>
 
-            <input
-              id="name"
-              name="name"
-              type="text"
-              required
-              value={name}
-              onChange={(event) => setName(event.target.value)}
-              className="w-full rounded-lg border px-3 py-2 outline-none focus:ring-2"
-              placeholder="John Doe"
-            />
-          </div>
+                <Input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  autoComplete="name"
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
+                  placeholder="John Doe"
+                />
+              </div>
 
-          <div>
-            <label
-              htmlFor="email"
-              className="mb-2 block text-sm font-medium"
-            >
-              Email
-            </label>
+              {/* Email */}
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
 
-            <input
-              id="email"
-              name="email"
-              type="email"
-              required
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              className="w-full rounded-lg border px-3 py-2 outline-none focus:ring-2"
-              placeholder="john@example.com"
-            />
-          </div>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  autoComplete="email"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                  placeholder="john@example.com"
+                />
+              </div>
 
-          <div>
-            <label
-              htmlFor="password"
-              className="mb-2 block text-sm font-medium"
-            >
-              Password
-            </label>
+              {/* Password */}
+              <div className="space-y-2">
+                <Label htmlFor="password">Password</Label>
 
-            <input
-              id="password"
-              name="password"
-              type="password"
-              required
-              minLength={8}
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              className="w-full rounded-lg border px-3 py-2 outline-none focus:ring-2"
-              placeholder="••••••••"
-            />
-          </div>
+                <Input
+                  id="password"
+                  name="password"
+                  type="password"
+                  required
+                  minLength={8}
+                  autoComplete="new-password"
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                  placeholder="••••••••"
+                />
 
-          {error && (
-            <p className="rounded-lg bg-red-50 p-3 text-sm text-red-600">
-              {error}
-            </p>
-          )}
+                <p className="text-xs text-slate-400">
+                  Use at least 8 characters.
+                </p>
+              </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full rounded-lg bg-black px-4 py-2.5 text-white disabled:opacity-50"
-          >
-            {loading ? "Creating account..." : "Create account"}
-          </button>
-        </form>
+              {/* Error */}
+              {error && (
+                <div
+                  role="alert"
+                  className="rounded-lg border border-red-200 bg-red-50 px-3 py-2.5 text-sm text-red-600"
+                >
+                  {error}
+                </div>
+              )}
 
-        <p className="mt-6 text-center text-sm text-gray-600">
+              {/* Submit */}
+              <Button
+                type="submit"
+                disabled={loading}
+                className="h-11 w-full bg-indigo-600 hover:bg-indigo-700"
+              >
+                {loading ? "Creating account..." : "Create account"}
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+
+        {/* Login */}
+        <p className="mt-6 text-center text-sm text-slate-500">
           Already have an account?{" "}
           <Link
             href="/login"
-            className="font-medium text-black underline"
+            className="font-medium text-indigo-600 hover:text-indigo-700"
           >
             Sign in
           </Link>
+        </p>
+
+        {/* Terms */}
+        <p className="mt-4 text-center text-xs leading-5 text-slate-400">
+          By creating an account, you agree to our terms of service and
+          privacy policy.
         </p>
       </div>
     </main>

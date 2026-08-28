@@ -1,51 +1,52 @@
 import {
-  GitPullRequest,
-  GitCommit,
+  BarChart3,
+  Clock,
+  KanbanSquare,
   Ticket,
   TrendingUp,
-  BarChart3
 } from "lucide-react";
 
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 const metrics = [
   {
-    label: "Active Pull Requests",
-    value: "24",
-    description: "Across connected repositories",
-    icon: GitPullRequest,
-  },
-  {
-    label: "Commits",
-    value: "138",
-    description: "During the last 30 days",
-    icon: GitCommit,
-  },
-  {
     label: "Open Issues",
-    value: "32",
-    description: "Across Jira projects",
+    value: "47",
+    description: "Across connected projects",
     icon: Ticket,
   },
   {
-    label: "Review Rate",
-    value: "87%",
-    description: "Pull requests reviewed",
+    label: "In Progress",
+    value: "12",
+    description: "Currently being worked on",
+    icon: KanbanSquare,
+  },
+  {
+    label: "Sprint Velocity",
+    value: "38 pts",
+    description: "Average over the last 3 sprints",
     icon: TrendingUp,
+  },
+  {
+    label: "Avg. Cycle Time",
+    value: "3.2 days",
+    description: "From in progress to done",
+    icon: Clock,
   },
 ];
 
-export default function DashboardPage() {
+export default function JiraIntegrationPage() {
   return (
     <div className="space-y-8">
       {/* Heading */}
       <div>
         <h1 className="text-2xl font-semibold tracking-tight text-slate-950">
-          Dashboard
+          Jira
         </h1>
 
         <p className="mt-1 text-sm text-slate-500">
-          Engineering activity across your connected tools.
+          Issue tracking and sprint activity from your connected Jira site.
         </p>
       </div>
 
@@ -85,16 +86,40 @@ export default function DashboardPage() {
         })}
       </div>
 
+      {/* Connection status */}
+      <Card className="border-slate-200 shadow-sm">
+        <CardContent className="flex flex-col items-start justify-between gap-4 p-6 sm:flex-row sm:items-center">
+          <div className="flex items-start gap-4">
+            <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-indigo-50">
+              <KanbanSquare className="size-5 text-indigo-600" />
+            </div>
+
+            <div>
+              <h2 className="font-semibold text-slate-950">
+                Connect your Jira site
+              </h2>
+
+              <p className="mt-1 text-sm text-slate-500">
+                Link a Jira Cloud site to see issues, sprints, and cycle time
+                here.
+              </p>
+            </div>
+          </div>
+
+          <Button className="w-full sm:w-auto">Connect Jira</Button>
+        </CardContent>
+      </Card>
+
       {/* Activity placeholder */}
       <Card className="border-slate-200 shadow-sm">
         <CardContent className="p-6">
           <div>
             <h2 className="font-semibold text-slate-950">
-              Engineering activity
+              Sprint activity
             </h2>
 
             <p className="mt-1 text-sm text-slate-500">
-              Your GitHub and Jira activity will appear here.
+              Your Jira issue activity will appear here.
             </p>
           </div>
 
@@ -103,11 +128,11 @@ export default function DashboardPage() {
               <BarChart3 className="mx-auto size-8 text-slate-300" />
 
               <p className="mt-3 text-sm font-medium text-slate-500">
-                Activity analytics
+                Issue burndown
               </p>
 
               <p className="mt-1 text-xs text-slate-400">
-                Connect GitHub or Jira to start seeing data.
+                Connect Jira to start seeing data.
               </p>
             </div>
           </div>
