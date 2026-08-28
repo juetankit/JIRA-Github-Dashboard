@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Jira × GitHub Dashboard",
+  title: "JIRA × GitHub Dashboard",
   description:
     "Engineering productivity and project intelligence across Jira and GitHub.",
 };
