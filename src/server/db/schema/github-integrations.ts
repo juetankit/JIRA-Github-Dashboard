@@ -12,6 +12,7 @@ export const githubIntegrations = pgTable("github_integrations", {
 
   organizationId: uuid("organization_id")
     .notNull()
+    .unique()
     .references(() => organizations.id, {
       onDelete: "cascade",
     }),

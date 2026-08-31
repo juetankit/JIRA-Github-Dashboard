@@ -1,17 +1,32 @@
 import Link from "next/link";
 
-export function AppLogo() {
+type AppLogoProps = {
+  variant?: "dark" | "light";
+  size?: "default" | "lg";
+};
+
+export function AppLogo({ variant = "dark", size = "default" }: AppLogoProps) {
+  const isLarge = size === "lg";
+
   return (
     <Link
       href="/"
-      className="inline-flex items-center gap-2 font-semibold tracking-tight"
+      className="inline-flex items-center gap-2.5 font-bold tracking-tight"
     >
-      <span className="flex size-8 items-center justify-center rounded-lg bg-indigo-600 text-sm font-bold text-white">
-        J×G
+      <span
+        className={`flex items-center justify-center rounded-lg bg-indigo-600 font-bold text-white ${
+          isLarge ? "size-11 text-lg" : "size-8 text-sm"
+        }`}
+      >
+        O
       </span>
 
-      <span className="text-slate-900">
-        Jira × GitHub
+      <span
+        className={`${isLarge ? "text-2xl" : "text-base"} ${
+          variant === "light" ? "text-white" : "text-slate-900"
+        }`}
+      >
+        Orbit
       </span>
     </Link>
   );

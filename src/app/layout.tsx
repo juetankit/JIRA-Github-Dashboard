@@ -9,9 +9,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "JIRA × GitHub Dashboard",
+  title: "Orbit",
   description:
-    "Engineering productivity and project intelligence across Jira and GitHub.",
+    "Orbit brings your GitHub and Jira engineering activity into one dashboard.",
 };
 
 export default function RootLayout({
