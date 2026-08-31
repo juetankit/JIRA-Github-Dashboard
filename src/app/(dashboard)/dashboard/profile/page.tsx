@@ -6,6 +6,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { auth } from "@/lib/auth";
+import { getInitials } from "@/lib/utils";
+import { headers } from "next/headers";
 
 const sessions = [
   {
@@ -24,7 +27,14 @@ const sessions = [
   },
 ];
 
-export default function ProfilePage() {
+export default async function ProfilePage() {
+
+  const session = await auth.api.getSession({
+    headers: await headers()
+  });
+
+  const {name, email} = session?.user || {name: "", email: ""};
+  
   return (
     <div className="space-y-8">
       {/* Heading */}
@@ -55,7 +65,7 @@ export default function ProfilePage() {
           <div className="flex items-center gap-4">
             <Avatar size="lg">
               <AvatarFallback className="bg-indigo-100 text-indigo-700">
-                AS
+                {getInitials(name)}
               </AvatarFallback>
             </Avatar>
 
@@ -67,7 +77,7 @@ export default function ProfilePage() {
           <div className="mt-6 grid gap-6 sm:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="full-name">Full name</Label>
-              <Input id="full-name" defaultValue="Ankit Saxena" />
+              <Input id="full-name" defaultValue={name} />
             </div>
 
             <div className="space-y-2">
@@ -75,7 +85,7 @@ export default function ProfilePage() {
               <Input
                 id="email"
                 type="email"
-                defaultValue="ankit@acmecorp.dev"
+                defaultValue={email}
                 disabled
               />
             </div>
@@ -153,9 +163,8 @@ export default function ProfilePage() {
 
                       <p className="mt-1 flex items-center gap-1.5 text-sm text-slate-500">
                         <span
-                          className={`size-1.5 rounded-full ${
-                            session.active ? "bg-emerald-500" : "bg-slate-300"
-                          }`}
+                          className={`size-1.5 rounded-full ${session.active ? "bg-emerald-500" : "bg-slate-300"
+                            }`}
                         />
                         {session.location} · {session.status}
                       </p>
